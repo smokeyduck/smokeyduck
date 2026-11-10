@@ -9,19 +9,28 @@
  *   GITHUB_TOKEN=... node scripts/render-metrics.mjs
  *
  * Optional env:
- *   PROFILE_USER     login to render (default: hungtqce180632)
+ *   PROFILE_USER     login to render (default: the repository owner)
  *   OUT_FILE         output path (default: assets/metrics.svg)
+ *
+ * The login is only used to query the API. It is never written into the
+ * rendered card, so the profile does not display the account handle.
  */
 
 import { writeFileSync } from "node:fs";
-import { dirname, resolve } from "node:path";
+import { resolve } from "node:path";
 
-const USER = process.env.PROFILE_USER || "hungtqce180632";
+const REPO_OWNER = process.env.GITHUB_REPOSITORY?.split("/")[0];
+const USER = process.env.PROFILE_USER || REPO_OWNER;
 const OUT = resolve(process.env.OUT_FILE || "assets/metrics.svg");
 const TOKEN = process.env.GITHUB_TOKEN || process.env.GH_TOKEN;
 
 if (!TOKEN) {
   console.error("GITHUB_TOKEN is required");
+  process.exit(1);
+}
+
+if (!USER) {
+  console.error("PROFILE_USER is required when GITHUB_REPOSITORY is not set");
   process.exit(1);
 }
 
@@ -211,7 +220,7 @@ function render(calendar, user) {
   });
 
   return `<?xml version="1.0" encoding="UTF-8"?>
-<svg xmlns="http://www.w3.org/2000/svg" width="${width}" height="${height}" viewBox="0 0 ${width} ${height}" role="img" aria-label="Contribution telemetry for ${USER}">
+<svg xmlns="http://www.w3.org/2000/svg" width="${width}" height="${height}" viewBox="0 0 ${width} ${height}" role="img" aria-label="Contribution telemetry">
   <style>
     .mono { font-family: 'JetBrains Mono', 'Fira Code', 'SF Mono', Menlo, Consolas, 'Liberation Mono', monospace; }
     .dim { fill: ${COLORS.dim}; }
@@ -223,7 +232,7 @@ function render(calendar, user) {
   <circle cx="20" cy="16" r="4.5" fill="#ff5f56" />
   <circle cx="36" cy="16" r="4.5" fill="#ffbd2e" />
   <circle cx="52" cy="16" r="4.5" fill="#27c93f" />
-  <text x="72" y="20" class="mono" fill="${COLORS.grey}" font-size="11.5">contributions — ${USER}</text>
+  <text x="72" y="20" class="mono" fill="${COLORS.grey}" font-size="11.5">contributions — last 12 months</text>
   <text x="${width - 16}" y="20" text-anchor="end" class="mono" fill="${COLORS.green}" font-size="11.5">live</text>
 
 ${monthLabels.join("\n")}

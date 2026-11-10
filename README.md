@@ -1,5 +1,5 @@
 <p align="center">
-  <img src="./assets/header.svg" width="100%" alt="hungtqce180632 — Director @ WinSell" />
+  <img src="./assets/header.svg" width="100%" alt="Director @ WinSell" />
 </p>
 
 <p align="center">
@@ -75,9 +75,9 @@ NestJS + Next.js + Prisma. AI content agents, post-to-blog sync, JSON-LD, `llms.
 Sign in with Google, AI clients are wired to the gateway. No terminal required.
 *Rust · Tauri v2 · TypeScript · MIT*
 
-**[`trivia`](https://github.com/hungtqce180632/trivia)** — clinic platform monorepo: Expo patient app, Express + Prisma API, React admin console, Docker/Caddy deploy stack.
+**[`trivia`](../trivia) — clinic platform monorepo: Expo patient app, Express + Prisma API, React admin console, Docker/Caddy deploy stack.
 
-**[`BotCrawlSEO`](https://github.com/hungtqce180632/BotCrawlSEO)** — Python SEO analyser: TF-IDF keyword extraction, backlink crawl, meta/heading/image audit, actionable reports.
+**[`BotCrawlSEO`](../BotCrawlSEO) — Python SEO analyser: TF-IDF keyword extraction, backlink crawl, meta/heading/image audit, actionable reports.
 
 ---
 
@@ -89,10 +89,6 @@ Sign in with Google, AI clients are wired to the gateway. No terminal required.
 
 <p align="center">
   <img src="./assets/metrics.svg" alt="Contribution telemetry" />
-</p>
-
-<p align="center">
-  <img src="https://streak-stats.demolab.com/?user=hungtqce180632&theme=dark&hide_border=true" alt="Contribution streak" />
 </p>
 
 ---

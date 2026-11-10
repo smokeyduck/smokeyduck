@@ -35,7 +35,7 @@ jobs:
       - name: Render contribution telemetry
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          PROFILE_USER: hungtqce180632
+          PROFILE_USER: ${{ github.repository_owner }}
           OUT_FILE: assets/metrics.svg
         run: node scripts/render-metrics.mjs
 
