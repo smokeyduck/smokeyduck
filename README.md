@@ -75,7 +75,7 @@ NestJS + Next.js + Prisma. AI content agents, post-to-blog sync, JSON-LD, `llms.
 Sign in with Google, AI clients are wired to the gateway. No terminal required.
 *Rust · Tauri v2 · TypeScript · MIT*
 
-**[`trivia`](../../../trivia)** — clinic platform monorepo: Expo patient app, Express + Prisma API, React admin console, Docker/Caddy deploy stack.
+**`trivia`** — clinic platform monorepo: Expo patient app, Express + Prisma API, React admin console, Docker/Caddy deploy stack. *Private, by request.*
 
 **[`BotCrawlSEO`](../../../BotCrawlSEO)** — Python SEO analyser: TF-IDF keyword extraction, backlink crawl, meta/heading/image audit, actionable reports.
 
