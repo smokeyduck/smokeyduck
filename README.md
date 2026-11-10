@@ -91,6 +91,10 @@ Sign in with Google, AI clients are wired to the gateway. No terminal required.
   <img src="./assets/metrics.svg" alt="Contribution telemetry" />
 </p>
 
+<p align="center">
+  <img src="./assets/snake.svg" width="70%" alt="Contribution snake" />
+</p>
+
 ---
 
 ### // contact

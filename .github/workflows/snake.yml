@@ -1,0 +1,49 @@
+name: Render contribution snake
+
+# Renders the contribution grid as an animated snake and commits it into the
+# repository, so the profile keeps working when the action service is down.
+#
+# The owner is resolved from the workflow context rather than hardcoded, and
+# the generated SVG carries no username of its own.
+
+on:
+  schedule:
+    - cron: "43 3 * * *"
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - .github/workflows/snake.yml
+
+permissions:
+  contents: write
+
+concurrency:
+  group: profile-snake
+  cancel-in-progress: true
+
+jobs:
+  render:
+    name: Render snake.svg
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Generate snake animation
+        uses: Platane/snk@v3
+        with:
+          github_user_name: ${{ github.repository_owner }}
+          outputs: |
+            assets/snake.svg?palette=github-dark&color_snake=#f5a623&color_dots=#161b22,#01311f,#034525,#0f6d31,#00c647
+
+      - name: Commit updated card
+        run: |
+          if git diff --quiet -- assets/snake.svg; then
+            echo "No change in assets/snake.svg"
+            exit 0
+          fi
+          git config user.name  "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add assets/snake.svg
+          git commit -m "chore: refresh contribution snake"
+          git push
