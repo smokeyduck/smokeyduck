@@ -15,8 +15,6 @@ Rust, Tauri v2, TypeScript.
 
 **[`BotCrawlSEO`](../../../BotCrawlSEO)** — Python SEO analyser: TF-IDF keywords, backlink crawl, meta / heading / image audit.
 
-**`trivia`** — clinic platform monorepo: Expo patient app, Express + Prisma API, React admin console. *Private, by request.*
-
 ### elsewhere
 
 [winsell.vn](https://winsell.vn) · [wisa.vn](https://wisa.vn) · [github.com/winsell-vn](https://github.com/winsell-vn) · contact@winsell.vn
