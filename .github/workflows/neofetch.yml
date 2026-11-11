@@ -1,0 +1,58 @@
+name: Render profile card
+
+# Regenerates assets/neofetch-*.svg from live GitHub data and commits the result.
+# The card is committed rather than hot-linked so the profile stays readable if
+# a third-party card service is down, and so every number on it is auditable.
+
+on:
+  schedule:
+    - cron: "17 3 * * *"
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - scripts/render-neofetch.mjs
+      - scripts/check-card.mjs
+      - .github/workflows/neofetch.yml
+
+permissions:
+  contents: write
+
+concurrency:
+  group: profile-card
+  cancel-in-progress: true
+
+jobs:
+  render:
+    name: Render neofetch card
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+
+      - name: Render card
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          PROFILE_USER: ${{ github.repository_owner }}
+          OUT_DIR: assets
+        run: node scripts/render-neofetch.mjs
+
+      # Geometry is the one failure mode an image cannot report: text that runs
+      # off the card just gets clipped by GitHub. Fail before committing.
+      - name: Check card geometry
+        run: node scripts/check-card.mjs
+
+      - name: Commit updated card
+        run: |
+          git add assets/neofetch-dark.svg assets/neofetch-light.svg
+          if git diff --cached --quiet -- assets/neofetch-dark.svg assets/neofetch-light.svg; then
+            echo "Card unchanged"
+            exit 0
+          fi
+          git config user.name  "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git commit -m "chore: refresh profile card"
+          git push
